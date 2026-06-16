@@ -58,6 +58,9 @@ group :development, :test do
   # Testes
   gem "rspec-rails"
   gem "factory_bot_rails"
+  group :development, :test do
+  gem "ruby-lsp-rspec", require: false
+end
 end
 
 group :development do
