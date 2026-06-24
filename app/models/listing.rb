@@ -11,4 +11,9 @@ class Listing < ApplicationRecord
   enum :status, { active: 0, sold: 1, inactive: 2 }
 
   scope :recent, -> { order(created_at: :desc) }
+
+  scope :search, ->(query) { where("title LIKE ? OR description LIKE ?", "%#{query}%", "%#{query}%") if query.present? }
+  scope :by_category, ->(category_id) { where(category_id: category_id) if category_id.present? }
+  scope :by_condition, ->(condition) { where(condition: condition) if condition.present? }
+  scope :by_max_price, ->(max_price) { where("price_cents <= ?", max_price) if max_price.present? }
 end

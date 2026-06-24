@@ -4,7 +4,12 @@ class ListingsController < ApplicationController
 
   # GET /listings or /listings.json
   def index
-    @listings = Listing.active.recent
+    @listings = Listing.active
+                       .search(params[:search])
+                       .by_category(params[:category_id])
+                       .by_condition(params[:condition])
+                       .by_max_price(params[:max_price])
+                       .recent
   end
 
   # GET /listings/1 or /listings/1.json

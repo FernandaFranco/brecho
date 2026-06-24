@@ -10,6 +10,35 @@
     <%= link_to "New listing", new_listing_path, class: "rounded-md px-3.5 py-2.5 bg-blue-600 hover:bg-blue-500 text-white block font-medium" %>
   </div>
 
+  <%= form_with url: listings_path, method: :get, class: "my-6 space-y-4" do |form| %>
+  <div class="flex flex-wrap gap-4">
+    <div class="flex-1 min-w-[200px]">
+      <%= form.label :search, "Buscar", class: "block text-sm font-medium mb-1" %>
+      <%= form.text_field :search, value: params[:search], placeholder: "Ex: vestido zara", class: "block shadow-sm rounded-md border border-gray-400 px-3 py-2 w-full" %>
+    </div>
+
+    <div>
+      <%= form.label :category_id, "Categoria", class: "block text-sm font-medium mb-1" %>
+      <%= form.select :category_id, Category.all.map { |c| [c.name, c.id] }, { include_blank: "Todas" }, { class: "block shadow-sm rounded-md border border-gray-400 px-3 py-2" } %>
+    </div>
+
+    <div>
+      <%= form.label :condition, "Condição", class: "block text-sm font-medium mb-1" %>
+      <%= form.select :condition, Listing.conditions.keys.map { |c| [c.humanize, c] }, { include_blank: "Todas" }, { class: "block shadow-sm rounded-md border border-gray-400 px-3 py-2" } %>
+    </div>
+
+    <div>
+      <%= form.label :max_price, "Preço até (centavos)", class: "block text-sm font-medium mb-1" %>
+      <%= form.number_field :max_price, value: params[:max_price], placeholder: "Ex: 10000", class: "block shadow-sm rounded-md border border-gray-400 px-3 py-2" %>
+    </div>
+  </div>
+
+  <div class="flex gap-2">
+    <%= form.submit "Filtrar", class: "rounded-md px-3.5 py-2.5 bg-blue-600 hover:bg-blue-500 text-white font-medium cursor-pointer" %>
+    <%= link_to "Limpar", listings_path, class: "rounded-md px-3.5 py-2.5 bg-gray-100 hover:bg-gray-50 font-medium" %>
+  </div>
+<% end %>
+
   <div id="listings" class="min-w-full divide-y divide-gray-200 space-y-5">
     <% if @listings.any? %>
       <% @listings.each do |listing| %>
