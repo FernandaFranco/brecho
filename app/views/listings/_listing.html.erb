@@ -1,30 +1,34 @@
 <div id="<%= dom_id listing %>" class="w-full sm:w-auto my-5 space-y-5">
+  <% if listing.photos.attached? %>
+    <div class="flex gap-2 overflow-x-auto">
+      <% listing.photos.each do |photo| %>
+        <%= image_tag photo.variant(resize_to_fill: [300, 300]), class: "w-32 h-32 object-cover rounded-md" %>
+      <% end %>
+    </div>
+  <% end %>
+
   <div>
     <strong class="block font-medium mb-1">Title:</strong>
     <%= listing.title %>
   </div>
+
   <div>
     <strong class="block font-medium mb-1">Description:</strong>
     <%= listing.description %>
   </div>
+
   <div>
-    <strong class="block font-medium mb-1">Price cents:</strong>
-    <%= listing.price_cents %>
+    <strong class="block font-medium mb-1">Price:</strong>
+    R$ <%= format("%.2f", listing.price_cents / 100.0) %>
   </div>
+
   <div>
     <strong class="block font-medium mb-1">Condition:</strong>
-    <%= listing.condition %>
+    <%= listing.condition.humanize %>
   </div>
-  <div>
-    <strong class="block font-medium mb-1">Status:</strong>
-    <%= listing.status %>
-  </div>
-  <div>
-    <strong class="block font-medium mb-1">User:</strong>
-    <%= listing.user_id %>
-  </div>
+
   <div>
     <strong class="block font-medium mb-1">Category:</strong>
-    <%= listing.category_id %>
+    <%= listing.category.name %>
   </div>
 </div>

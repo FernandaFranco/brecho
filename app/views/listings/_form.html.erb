@@ -36,6 +36,11 @@
     <%= form.select :category_id, Category.all.map { |c| [c.name, c.id] }, {}, class: ["block shadow-sm rounded-md border px-3 py-2 mt-2 w-full", {"border-gray-400 focus:outline-blue-600": listing.errors[:category_id].none?, "border-red-400 focus:outline-red-600": listing.errors[:category_id].any?}] %>
   </div>
 
+  <div class="my-5">
+  <%= form.label :photos %>
+  <%= form.file_field :photos, multiple: true, accept: "image/jpeg,image/png,image/webp", class: "block shadow-sm rounded-md border border-gray-400 px-3 py-2 mt-2 w-full" %>
+</div>
+
   <div class="inline">
     <%= form.submit class: "w-full sm:w-auto rounded-md px-3.5 py-2.5 bg-blue-600 hover:bg-blue-500 text-white inline-block font-medium cursor-pointer" %>
   </div>
