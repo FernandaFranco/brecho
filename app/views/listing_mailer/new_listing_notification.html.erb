@@ -1,0 +1,9 @@
+<h1>Anúncio criado com sucesso!</h1>
+
+<p>Seu anúncio "<%= @listing.title %>" foi publicado no Brechó Online.</p>
+
+<p>
+  <strong>Preço:</strong> R$ <%= format("%.2f", @listing.price_cents / 100.0) %><br>
+  <strong>Condição:</strong> <%= @listing.condition.humanize %><br>
+  <strong>Categoria:</strong> <%= @listing.category.name %>
+</p>
