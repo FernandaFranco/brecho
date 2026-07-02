@@ -19,6 +19,10 @@ class Listing < ApplicationRecord
   scope :by_condition, ->(condition) { where(condition: condition) if condition.present? }
   scope :by_max_price, ->(max_price) { where("price_cents <= ?", max_price) if max_price.present? }
 
+  def increment_views!
+    increment!(:views_count)
+    ActionCable.server.broadcast("listing_#{id}", { views_count: views_count })
+  end
 
   private
 

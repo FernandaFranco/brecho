@@ -14,6 +14,7 @@ class ListingsController < ApplicationController
 
   # GET /listings/1 or /listings/1.json
   def show
+    @listing.increment_views!
   end
 
   # GET /listings/new
